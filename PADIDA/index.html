@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>DocSphere Knowledge Portal</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+scroll-behavior:smooth;
+}
+
+body{
+font-family:'Segoe UI',Arial,sans-serif;
+background:#f4f7fb;
+color:#333;
+line-height:1.6;
+overflow-x:hidden;
+}
+
+/* HEADER */
+
+header{
+background:#ff7a00;
+padding:18px 40px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+position:sticky;
+top:0;
+z-index:999;
+box-shadow:0 3px 10px rgba(0,0,0,.15);
+}
+
+.logo{
+font-size:30px;
+font-weight:bold;
+color:white;
+}
+
+nav{
+display:flex;
+gap:18px;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+padding:10px 14px;
+border-radius:8px;
+font-weight:600;
+transition:.3s;
+}
+
+nav a:hover{
+background:rgba(255,255,255,.2);
+}
+
+nav a.activeNav{
+background:rgba(255,255,255,.25);
+}
+
+/* HERO */
+
+.hero{
+background:linear-gradient(135deg,#ff7a00,#2fc7d3);
+padding:90px 30px;
+text-align:center;
+color:white;
+}
+
+.hero h1{
+font-size:54px;
+margin-bottom:20px;
+}
+
+.hero p{
+font-size:20px;
+max-width:950px;
+margin:auto;
+opacity:.95;
+}
+
+.search{
+margin-top:30px;
+}
+
+.search input{
+width:75%;
+max-width:800px;
+padding:18px;
+border:none;
+border-radius:50px;
+font-size:16px;
+outline:none;
+box-shadow:0 5px 20px rgba(0,0,0,.15);
+}
+
+/* LAYOUT */
+
+.container{
+display:flex;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+width:320px;
+background:white;
+height:calc(100vh - 86px);
+overflow:auto;
+border-right:1px solid #ddd;
+padding:25px;
+position:sticky;
+top:86px;
+}
+
+.sidebar h3{
+margin-top:25px;
+color:#ff7a00;
+font-size:22px;
+}
+
+.sidebar p{
+font-size:13px;
+color:#777;
+margin-bottom:12px;
+}
+
+.sidebar a{
+display:block;
+padding:12px;
+margin-bottom:8px;
+text-decoration:none;
+color:#333;
+border-radius:10px;
+transition:.3s;
+font-weight:500;
+cursor:pointer;
+}
+
+.sidebar a:hover{
+background:#ff7a00;
+color:white;
+transform:translateX(5px);
+}
+
+.sidebar a.activeLink{
+background:#ff7a00;
+color:white;
+transform:translateX(5px);
+}
+
+/* MAIN */
+
+.main{
+flex:1;
+padding:35px;
+}
+
+/* CARDS */
+
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:22px;
+margin-bottom:40px;
+}
+
+.card{
+background:white;
+padding:25px;
+border-radius:16px;
+box-shadow:0 5px 20px rgba(0,0,0,.08);
+transition:.3s;
+cursor:pointer;
+}
+
+.card:hover{
+transform:translateY(-10px);
+box-shadow:0 12px 30px rgba(0,0,0,.15);
+}
+
+.card h3{
+color:#ff7a00;
+margin-bottom:10px;
+}
+
+/* DOCS */
+
+.doc{
+display:none;
+background:white;
+padding:35px;
+border-radius:16px;
+box-shadow:0 5px 20px rgba(0,0,0,.08);
+margin-bottom:30px;
+animation:fade .4s ease;
+}
+
+.doc.active{
+display:block;
+}
+
+@keyframes fade{
+from{
+opacity:0;
+transform:translateY(10px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+.doc h1{
+margin-bottom:15px;
+color:#ff7a00;
+}
+
+.doc p{
+margin-bottom:18px;
+}
+
+.badge{
+background:#2fc7d3;
+color:white;
+padding:5px 12px;
+border-radius:30px;
+font-size:12px;
+display:inline-block;
+margin-bottom:20px;
+}
+
+pre{
+background:#1e293b;
+color:white;
+padding:18px;
+border-radius:12px;
+overflow:auto;
+margin-top:15px;
+}
+
+ul{
+padding-left:20px;
+margin-bottom:20px;
+}
+
+li{
+margin-bottom:10px;
+}
+
+/* LINKS */
+
+.resource-links{
+margin-top:20px;
+}
+
+.resource-links a{
+display:inline-block;
+padding:12px 18px;
+background:#2fc7d3;
+color:white;
+text-decoration:none;
+border-radius:10px;
+margin:8px;
+transition:.3s;
+}
+
+.resource-links a:hover{
+background:#20aab3;
+}
+
+/* TOP BUTTON */
+
+#topBtn{
+position:fixed;
+bottom:20px;
+left:20px;
+z-index:999;
+background:#ff7a00;
+color:white;
+border:none;
+padding:14px 18px;
+border-radius:50px;
+cursor:pointer;
+font-size:16px;
+font-weight:bold;
+box-shadow:0 4px 12px rgba(0,0,0,.2);
+display:none;
+transition:.3s;
+}
+
+#topBtn:hover{
+background:#e56c00;
+transform:translateY(-3px);
+}
+
+/* FOOTER */
+
+footer{
+background:#111827;
+color:white;
+padding:40px;
+text-align:center;
+margin-top:40px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+.container{
+flex-direction:column;
+}
+
+.sidebar{
+width:100%;
+height:auto;
+position:relative;
+top:0;
+}
+
+nav{
+display:none;
+}
+
+.hero h1{
+font-size:40px;
+}
+
+.search input{
+width:95%;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">DOCSPHERE</div>
+
+<nav>
+<a href="#home" class="activeNav">Home</a>
+<a href="#docs">Documentation</a>
+<a href="#tutorials">Tutorials</a>
+<a href="#api">API</a>
+<a href="#footer">Contact</a>
+</nav>
+
+</header>
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+<h1>DocSphere Knowledge Portal</h1>
+
+<p>
+A professional academic-inspired documentation platform
+for developers, students, engineers, and researchers.
+Explore APIs, tutorials, deployment systems,
+cloud infrastructure, and modern software engineering resources.
+</p>
+
+<div class="search">
+<input id="searchBox" placeholder="Search tutorials, APIs, documentation, resources...">
+</div>
+
+</section>
+
+<div class="container">
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<h3>Getting Started</h3>
+<p>Platform basics and setup guides.</p>
+
+<a onclick="openDoc('intro')">Introduction</a>
+<a onclick="openDoc('install')">Installation</a>
+<a onclick="openDoc('quick')">Quick Start</a>
+
+<h3>Developer Docs</h3>
+<p>REST APIs and developer systems.</p>
+
+<a onclick="openDoc('api')">API Reference</a>
+<a onclick="openDoc('auth')">Authentication</a>
+<a onclick="openDoc('database')">Database Guide</a>
+
+<h3>Advanced Topics</h3>
+<p>Security and deployment systems.</p>
+
+<a onclick="openDoc('security')">Security</a>
+<a onclick="openDoc('deploy')">Deployment</a>
+
+<h3>Learning Resources</h3>
+<p>Tutorials and educational resources.</p>
+
+<a onclick="openDoc('videos')">Video Tutorials</a>
+<a onclick="openDoc('learning')">Learning Hub</a>
+<a onclick="openDoc('playground')">API Playground</a>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main" id="docs">
+
+<!-- CARDS -->
+
+<div class="cards">
+
+<div class="card" onclick="openDoc('intro')">
+<h3>Introduction</h3>
+<p>Overview of the platform.</p>
+</div>
+
+<div class="card" onclick="openDoc('api')">
+<h3>API Documentation</h3>
+<p>REST APIs and testing tools.</p>
+</div>
+
+<div class="card" onclick="openDoc('videos')">
+<h3>Video Tutorials</h3>
+<p>Watch developer tutorials.</p>
+</div>
+
+<div class="card" onclick="openDoc('playground')">
+<h3>API Playground</h3>
+<p>Practice APIs online.</p>
+</div>
+
+</div>
+
+<!-- INTRO -->
+
+<div id="intro" class="doc active">
+
+<h1>Introduction</h1>
+
+<span class="badge">Getting Started</span>
+
+<p>
+DocSphere centralizes tutorials,
+documentation, developer APIs,
+deployment guides, and educational resources
+into one searchable knowledge portal.
+</p>
+
+</div>
+
+<!-- INSTALL -->
+
+<div id="install" class="doc">
+
+<h1>Installation</h1>
+
+<pre>
+npm install docsphere
+docsphere init
+</pre>
+
+</div>
+
+<!-- QUICK -->
+
+<div id="quick" class="doc">
+
+<h1>Quick Start</h1>
+
+<pre>
+docsphere create project
+cd project
+npm start
+</pre>
+
+</div>
+
+<!-- API -->
+
+<div id="api" class="doc">
+
+<h1>API Reference</h1>
+
+<pre>
+GET /api/users
+POST /api/login
+PUT /api/articles
+DELETE /api/users/{id}
+</pre>
+
+<div class="resource-links">
+
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API" target="_blank">
+Fetch API Docs
+</a>
+
+<a href="https://swagger.io/" target="_blank">
+Swagger
+</a>
+
+<a href="https://postman.com/" target="_blank">
+Postman
+</a>
+
+</div>
+
+</div>
+
+<!-- AUTH -->
+
+<div id="auth" class="doc">
+
+<h1>Authentication</h1>
+
+<pre>
+{
+ "email":"user@email.com",
+ "password":"123456"
+}
+</pre>
+
+</div>
+
+<!-- DATABASE -->
+
+<div id="database" class="doc">
+
+<h1>Database Guide</h1>
+
+<ul>
+<li>PostgreSQL Integration</li>
+<li>MongoDB Collections</li>
+<li>MySQL Optimization</li>
+</ul>
+
+</div>
+
+<!-- SECURITY -->
+
+<div id="security" class="doc">
+
+<h1>Security</h1>
+
+<ul>
+<li>JWT Authentication</li>
+<li>HTTPS Encryption</li>
+<li>Audit Logs</li>
+</ul>
+
+</div>
+
+<!-- DEPLOY -->
+
+<div id="deploy" class="doc">
+
+<h1>Deployment</h1>
+
+<pre>
+docker build .
+kubectl apply -f deployment.yaml
+</pre>
+
+</div>
+
+<!-- VIDEOS -->
+
+<div id="videos" class="doc">
+
+<h1 id="tutorials">Video Tutorials</h1>
+
+<div class="resource-links">
+
+<a href="https://www.youtube.com/watch?v=PkZNo7MFNFg" target="_blank">
+JavaScript Course
+</a>
+
+<a href="https://www.youtube.com/watch?v=Oe421EPjeBE" target="_blank">
+Node.js Tutorial
+</a>
+
+<a href="https://www.youtube.com/watch?v=WXsD0ZgxjRw" target="_blank">
+REST API Course
+</a>
+
+<a href="https://www.youtube.com/watch?v=f2EqECiTBL8" target="_blank">
+MongoDB Tutorial
+</a>
+
+</div>
+
+</div>
+
+<!-- LEARNING -->
+
+<div id="learning" class="doc">
+
+<h1>Learning Hub</h1>
+
+<div class="resource-links">
+
+<a href="https://developer.mozilla.org/" target="_blank">
+MDN Docs
+</a>
+
+<a href="https://www.freecodecamp.org/" target="_blank">
+freeCodeCamp
+</a>
+
+<a href="https://www.w3schools.com/" target="_blank">
+W3Schools
+</a>
+
+<a href="https://scholar.google.com/" target="_blank">
+Google Scholar
+</a>
+
+</div>
+
+</div>
+
+<!-- PLAYGROUND -->
+
+<div id="playground" class="doc">
+
+<h1>API Playground</h1>
+
+<div class="resource-links">
+
+<a href="https://jsonplaceholder.typicode.com/" target="_blank">
+JSONPlaceholder
+</a>
+
+<a href="https://pokeapi.co/" target="_blank">
+Pokemon API
+</a>
+
+<a href="https://swapi.dev/" target="_blank">
+Star Wars API
+</a>
+
+</div>
+
+<pre>
+fetch('https://jsonplaceholder.typicode.com/users')
+.then(response => response.json())
+.then(data => console.log(data))
+</pre>
+
+</div>
+
+</div>
+</div>
+
+<!-- TOP BUTTON -->
+
+<button id="topBtn">↑ Top</button>
+
+<!-- FOOTER -->
+
+<footer id="footer">
+
+<h2>DocSphere Knowledge Portal</h2>
+
+<p>
+Professional documentation platform for developers,
+students, engineers, and researchers.
+</p>
+
+</footer>
+
+<script>
+
+/* START WEBSITE AT TOP */
+
+window.onload = () => {
+
+window.scrollTo(0,0);
+
+/* START TRACKER ON HOME */
+
+document.querySelectorAll('nav a')
+.forEach(a=>a.classList.remove('activeNav'));
+
+document.querySelector('nav a[href="#home"]')
+.classList.add('activeNav');
+
+};
+
+/* OPEN DOCUMENT */
+
+function openDoc(id){
+
+document.querySelectorAll('.doc')
+.forEach(doc=>{
+doc.classList.remove('active');
+});
+
+const selectedDoc = document.getElementById(id);
+
+if(selectedDoc){
+
+selectedDoc.classList.add('active');
+
+selectedDoc.scrollIntoView({
+behavior:'smooth',
+block:'start'
+});
+
+}
+
+document.querySelectorAll('.sidebar a')
+.forEach(link=>{
+link.classList.remove('activeLink');
+});
+
+document.querySelectorAll('.sidebar a')
+.forEach(link=>{
+
+if(link.getAttribute('onclick') === `openDoc('${id}')`){
+
+link.classList.add('activeLink');
+
+}
+
+});
+
+}
+
+/* SEARCH */
+
+document.getElementById('searchBox')
+.addEventListener('keyup',function(){
+
+let value = this.value.toLowerCase();
+
+document.querySelectorAll('.card')
+.forEach(card=>{
+
+card.style.display =
+card.innerText.toLowerCase().includes(value)
+? 'block'
+: 'none';
+
+});
+
+});
+
+/* NAVIGATION TRACKER */
+
+document.querySelectorAll('nav a')
+.forEach(link=>{
+
+link.addEventListener('click',function(e){
+
+e.preventDefault();
+
+document.querySelectorAll('nav a')
+.forEach(a=>a.classList.remove('activeNav'));
+
+this.classList.add('activeNav');
+
+const target = this.getAttribute('href');
+
+if(target === '#home'){
+
+window.scrollTo({
+top:0,
+behavior:'smooth'
+});
+
+}
+
+else if(target === '#docs'){
+
+document.querySelector('.main')
+.scrollIntoView({
+behavior:'smooth'
+});
+
+}
+
+else if(target === '#tutorials'){
+
+openDoc('videos');
+
+}
+
+else if(target === '#api'){
+
+openDoc('api');
+
+}
+
+else if(target === '#footer'){
+
+document.getElementById('footer')
+.scrollIntoView({
+behavior:'smooth'
+});
+
+}
+
+});
+
+});
+
+/* TOP BUTTON */
+
+const topBtn = document.getElementById('topBtn');
+
+window.addEventListener('scroll',()=>{
+
+if(window.scrollY > 300){
+
+topBtn.style.display='block';
+
+}else{
+
+topBtn.style.display='none';
+
+}
+
+});
+
+topBtn.addEventListener('click',()=>{
+
+window.scrollTo({
+top:0,
+behavior:'smooth'
+});
+
+/* TRACKER BACK TO HOME */
+
+document.querySelectorAll('nav a')
+.forEach(a=>a.classList.remove('activeNav'));
+
+document.querySelector('nav a[href="#home"]')
+.classList.add('activeNav');
+
+});
+
+</script>
+
+</body>
+</html>
+
