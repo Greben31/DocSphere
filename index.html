@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DocSphere Wiki & Documentation Hub</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="motion-bg" aria-hidden="true">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <div class="reading-progress" aria-hidden="true">
+    <span id="readingProgress"></span>
+  </div>
+
+  <header class="topbar">
+    <a class="brand" href="#home" aria-label="DocSphere home">
+      <span class="brand-mark">D</span>
+      <span>
+        <strong>DocSphere</strong>
+        <small>Wiki & Docs Hub</small>
+      </span>
+    </a>
+
+    <button class="icon-button menu-button" id="menuButton" type="button" aria-label="Open documentation menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav class="topnav" aria-label="Primary navigation">
+      <a href="#home" class="active">Overview</a>
+      <a href="#docs">Documentation</a>
+      <a href="#features">Features</a>
+      <a href="#footer">Support</a>
+    </nav>
+
+    <div class="top-actions">
+      <label class="version-control" for="versionSelect">
+        <span>Version</span>
+        <select id="versionSelect">
+          <option value="v4.0">v4.0 Research</option>
+          <option value="v3.5">v3.5 Current</option>
+          <option value="v3.2">v3.2 Stable</option>
+          <option value="v2.8">v2.8 Legacy</option>
+          <option value="v1.9">v1.9 Archive</option>
+        </select>
+      </label>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode">Dark</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <p class="eyebrow">Centralized documentation workspace</p>
+        <h1>Wiki & Documentation Sites</h1>
+        <p class="hero-copy">
+          Build a searchable home for technical manuals, software documentation,
+          internal company guidelines, release notes, and knowledge base articles.
+        </p>
+
+        <div class="global-search" role="search">
+          <label for="searchBox">Search documentation</label>
+          <div class="search-shell">
+            <span aria-hidden="true">/</span>
+            <input id="searchBox" type="search" placeholder="Search API reference, style guide, permissions...">
+            <button id="clearSearch" type="button">Clear</button>
+          </div>
+          <div class="search-results" id="searchResults" aria-live="polite"></div>
+        </div>
+      </div>
+
+      <aside class="hero-panel" aria-label="Documentation metrics">
+        <div class="panel-header">
+          <span class="status-dot"></span>
+          <span id="versionBadge">v4.0 Research</span>
+        </div>
+        <div class="release-card">
+          <span>Latest update</span>
+          <strong>Scholar references and guided onboarding</strong>
+          <p>More source types, citation notes, tutorial steps, hover states, and version-aware articles.</p>
+        </div>
+        <div class="metric-grid">
+          <div>
+            <strong>32</strong>
+            <span>Core docs</span>
+          </div>
+          <div>
+            <strong>14</strong>
+            <span>Guides</span>
+          </div>
+          <div>
+            <strong>5</strong>
+            <span>Versions</span>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="feature-strip" id="features" aria-label="Core documentation site features">
+      <article>
+        <span class="feature-icon">NAV</span>
+        <h2>Sidebar Trees</h2>
+        <p>Grouped sections organize manuals, policies, APIs, and onboarding references.</p>
+      </article>
+      <article>
+        <span class="feature-icon">SRC</span>
+        <h2>Global Search</h2>
+        <p>Instant filtering helps readers jump directly to matching documentation pages.</p>
+      </article>
+      <article>
+        <span class="feature-icon">API</span>
+        <h2>Code Snippets</h2>
+        <p>Readable code blocks include language labels and copy buttons for developers.</p>
+      </article>
+      <article>
+        <span class="feature-icon">VER</span>
+        <h2>Version Toggle</h2>
+        <p>Documentation can change context for current, stable, and legacy releases.</p>
+      </article>
+      <article>
+        <span class="feature-icon">REF</span>
+        <h2>Scholar References</h2>
+        <p>Reference cards track papers, DOIs, citation notes, and source quality.</p>
+      </article>
+      <article>
+        <span class="feature-icon">TUT</span>
+        <h2>Guided Tutorial</h2>
+        <p>Step-by-step learning paths help new readers understand how to use the hub.</p>
+      </article>
+    </section>
+
+    <section class="docs-shell" id="docs">
+      <aside class="sidebar" id="sidebar" aria-label="Documentation navigation">
+        <div class="sidebar-head">
+          <strong>Documentation</strong>
+          <span>Navigation tree</span>
+        </div>
+
+        <div class="nav-group open">
+          <button type="button" class="group-toggle">Getting Started</button>
+          <div class="group-links">
+            <button type="button" class="doc-link active" data-doc="overview">Overview</button>
+            <button type="button" class="doc-link" data-doc="architecture">Information Architecture</button>
+            <button type="button" class="doc-link" data-doc="quickstart">Quick Start Template</button>
+            <button type="button" class="doc-link" data-doc="tutorial">Interactive Tutorial</button>
+          </div>
+        </div>
+
+        <div class="nav-group open">
+          <button type="button" class="group-toggle">Knowledge Base</button>
+          <div class="group-links">
+            <button type="button" class="doc-link" data-doc="guidelines">Internal Guidelines</button>
+            <button type="button" class="doc-link" data-doc="workflow">Editorial Workflow</button>
+            <button type="button" class="doc-link" data-doc="search">Search Strategy</button>
+            <button type="button" class="doc-link" data-doc="faq">FAQ Library</button>
+          </div>
+        </div>
+
+        <div class="nav-group open">
+          <button type="button" class="group-toggle">Research References</button>
+          <div class="group-links">
+            <button type="button" class="doc-link" data-doc="scholar">Google Scholar Workflow</button>
+            <button type="button" class="doc-link" data-doc="sources">Source Evaluation</button>
+            <button type="button" class="doc-link" data-doc="citations">Citation Standards</button>
+            <button type="button" class="doc-link" data-doc="bibliography">Bibliography Template</button>
+          </div>
+        </div>
+
+        <div class="nav-group open">
+          <button type="button" class="group-toggle">Developer Docs</button>
+          <div class="group-links">
+            <button type="button" class="doc-link" data-doc="api">API Reference</button>
+            <button type="button" class="doc-link" data-doc="auth">Authentication</button>
+            <button type="button" class="doc-link" data-doc="snippets">Snippet Standards</button>
+          </div>
+        </div>
+
+        <div class="nav-group">
+          <button type="button" class="group-toggle">Governance</button>
+          <div class="group-links">
+            <button type="button" class="doc-link" data-doc="versions">Versioning</button>
+            <button type="button" class="doc-link" data-doc="permissions">Permissions</button>
+            <button type="button" class="doc-link" data-doc="review">Review Checklist</button>
+          </div>
+        </div>
+      </aside>
+
+      <article class="doc-view" id="docView" tabindex="-1">
+        <div class="doc-meta">
+          <span id="docCategory">Getting Started</span>
+          <span id="docVersion">v3.2 Current</span>
+          <span id="docReadTime">4 min read</span>
+        </div>
+
+        <h2 id="docTitle">Overview</h2>
+        <p class="doc-summary" id="docSummary">
+          DocSphere is a central home for manuals, software guides, company policies,
+          and developer references.
+        </p>
+
+        <div id="docBody"></div>
+      </article>
+
+      <aside class="right-rail" aria-label="On this page">
+        <strong>On this page</strong>
+        <a href="#docs">Current article</a>
+        <a href="#features">Core features</a>
+        <a href="#footer">Support</a>
+        <div class="help-box">
+          <span>Need accuracy?</span>
+          <p>Use scholar-style references, review dates, source notes, and version labels.</p>
+        </div>
+        <div class="mini-tutorial">
+          <span>Start here</span>
+          <button type="button" class="doc-link rail-link" data-doc="tutorial">Open Tutorial</button>
+          <button type="button" class="doc-link rail-link" data-doc="scholar">Open Scholar Workflow</button>
+        </div>
+        <div class="resource-hub">
+          <span>Outside resources</span>
+          <a href="https://scholar.google.com/intl/us/scholar/help.html" target="_blank" rel="noopener noreferrer">Scholar Help</a>
+          <a href="https://www.zotero.org/support/quick_start_guide" target="_blank" rel="noopener noreferrer">Zotero Guide</a>
+          <a href="https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/index.html" target="_blank" rel="noopener noreferrer">APA Guide</a>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <button class="back-to-top" id="topButton" type="button">Top</button>
+
+  <footer id="footer">
+    <div>
+      <strong>DocSphere Wiki & Documentation Hub</strong>
+      <p>Designed for technical manuals, software documentation, internal guidelines, and knowledge bases.</p>
+    </div>
+    <a href="#home">Back to overview</a>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
